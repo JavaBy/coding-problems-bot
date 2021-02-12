@@ -22,7 +22,6 @@ fun scrapeLeetCodeProblems() : List<Problem> {
     val rows = findAll("#question-app table tbody.reactable-data tr")
 
     val emptyProblems = ProgressBar.wrap(rows.stream(), "Populating problems list:").map { row ->
-        print(".")
         val columns = row.findAll("td")
         val a = columns[2].find("a")
         Problem(
