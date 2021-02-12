@@ -1,23 +1,27 @@
 package by.jprof.coding.problems.bot
 
-import com.codeborne.selenide.Selenide.`$` as find
-import com.codeborne.selenide.Selenide.`$$` as findAll
 import com.codeborne.selenide.Selenide.open
 import com.vladsch.flexmark.html2md.converter.FlexmarkHtmlConverter
+import me.tongfei.progressbar.ProgressBar
+import org.openqa.selenium.chrome.ChromeDriverService
+import java.util.logging.Level
+import java.util.logging.Logger
 import kotlin.streams.toList
+import com.codeborne.selenide.Selenide.`$$` as findAll
+import com.codeborne.selenide.Selenide.`$` as find
 
 val htmlToMarkdownConverter = FlexmarkHtmlConverter.builder().build()
 
 fun scrapeLeetCodeProblems() : List<Problem> {
+    configureBrowser()
 
-    System.setProperty("selenide.headless", "true")
     open("https://leetcode.com/problemset/algorithms")
 
     find("span.row-selector select").selectOptionContainingText("all") // show all problems
 
     val rows = findAll("#question-app table tbody.reactable-data tr")
 
-    val emptyProblems = rows.stream().map { row ->
+    val emptyProblems = ProgressBar.wrap(rows.stream(), "Populating problems list:").map { row ->
         print(".")
         val columns = row.findAll("td")
         val a = columns[2].find("a")
@@ -30,7 +34,7 @@ fun scrapeLeetCodeProblems() : List<Problem> {
         )
     }.toList()
 
-    return emptyProblems.map { problem ->
+    return ProgressBar.wrap(emptyProblems, "Populating problems details:").map { problem ->
         open(problem.link)
         val questionContent = find("div[class*='question-content']")
         if (questionContent.exists()) {
@@ -44,5 +48,11 @@ fun scrapeLeetCodeProblems() : List<Problem> {
             problem
         }
     }
+}
+
+private fun configureBrowser() {
+    System.setProperty("selenide.headless", "true")
+    System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, "true")
+    Logger.getLogger("org.openqa.selenium").level = Level.OFF
 }
 

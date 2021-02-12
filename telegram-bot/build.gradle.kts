@@ -24,6 +24,7 @@ val junitVersion = "5.7.1"
 val tgbotapiVersion = "0.32.5"
 val selenideVersion = "5.18.1"
 val flexmarkVersion = "0.62.2"
+val progressbarVersion = "0.9.0"
 
 dependencies {
     // Align versions of all Kotlin components
@@ -54,6 +55,7 @@ dependencies {
     implementation("dev.inmo:tgbotapi:$tgbotapiVersion")
     implementation("com.codeborne:selenide:$selenideVersion")
     implementation("com.vladsch.flexmark:flexmark-all:$flexmarkVersion")
+    implementation("me.tongfei:progressbar:$progressbarVersion")
 
     // Use JUnit 5 for testing.
     testImplementation(platform("org.junit:junit-bom:$junitVersion"))

@@ -1,0 +1,4 @@
+<configuration>
+    <logger name="io.github.bonigarcia" level="${SELENIDE_LOGGING:-OFF}"/>
+    <logger name="com.codeborne.selenide" level="${SELENIDE_LOGGING:-OFF}"/>
+</configuration>

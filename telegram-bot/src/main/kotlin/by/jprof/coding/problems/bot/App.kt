@@ -9,10 +9,9 @@ fun main(args: Array<String>) {
     when(args[0]) { // command
         "scrape-problems" -> {
             val stopwatch = Stopwatch.createStarted()
-            val problems = scrapeLeetCodeProblems()
+            scrapeLeetCodeProblems()
             val elapsed = stopwatch.elapsed()
-            print("Scrape took ${elapsed.toHoursPart()} h ${elapsed.toMinutesPart()} min ${elapsed.toSeconds()} sec")
-            store(Platform.LEETCODE, problems)
+            println("Scrape took ${elapsed.toHoursPart()} h ${elapsed.toMinutesPart()} min ${elapsed.toSeconds()} sec")
         }
         else -> TODO("Print usage")
     }
