@@ -1,3 +1,9 @@
 spring:
   application:
     name: coding-problems-bot
+
+=DEBUG
+logging:
+  level:
+    root: ${LOG_LEVEL:ERROR}
+    level.org.springframework.r2dbc: ${LOG_LEVEL:ERROR}

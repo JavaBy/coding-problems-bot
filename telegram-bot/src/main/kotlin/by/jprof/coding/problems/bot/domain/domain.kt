@@ -3,20 +3,20 @@ package by.jprof.coding.problems.bot.domain
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 
+
+class Platforms {
+    companion object {
+        const val LEETCODE = "Leetcode"
+    }
+}
+
 @Table
 data class Problem(
-    val number: Int,
-    val link: String,
     @Id
-    val id: String = link.split("/").last(),
+    val id: String,
+    val link: String,
     val title: String,
-    val acceptance: String,
+    val acceptance: Float?,
     val difficulty: String,
-    val question: String = "",
-    val tags: List<Tag> = emptyList(),
-    val hints: List<Hint> = emptyList()
+    val platform: String = Platforms.LEETCODE
 )
-
-data class Tag(val link : String, val title: String)
-
-data class Hint(val id: String, val content: String)
