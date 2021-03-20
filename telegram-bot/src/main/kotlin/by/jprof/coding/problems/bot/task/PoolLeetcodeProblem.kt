@@ -32,7 +32,6 @@ class PoolLeetcodeProblem(
             val links = problemRepository.findAllProjectedBy().map { it.link }.toSet()
             log.info("scraping all leetcode the problems")
             val scrapedProblems = leetCodeProblemsScraper.scrapeAllLeetCodeProblems()
-            scrapedProblems.forEach {log.info(it.difficulty)}
             log.info("filtering and saving new problems")
             val nonExisting = scrapedProblems.filterNot { links.contains(it.link) }.toList()
             val savedCount = problemRepository.saveAll(nonExisting).count()
