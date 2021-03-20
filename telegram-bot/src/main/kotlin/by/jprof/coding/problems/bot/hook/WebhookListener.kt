@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class WebhookListener(private val tgUpdateHandlingService: TgUpdateHandlingService) {
     companion object {
-        private val EMPTY_JSON_BODY = "{}"
+        private const val EMPTY_JSON_BODY = "{}"
     }
 
     @PostMapping(produces = [APPLICATION_JSON_VALUE], consumes = [APPLICATION_JSON_VALUE])
