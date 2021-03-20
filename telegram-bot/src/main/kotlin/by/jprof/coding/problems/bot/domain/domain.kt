@@ -15,25 +15,25 @@ enum class Messenger(val messenger: String) {
 }
 
 @Table
-data class Problem(
-    @Id @JvmField var id: String,
-    val link: String,
-    val title: String,
+class Problem(
+    @Id @JvmField var id: String?,
+    val link: String?,
+    val title: String?,
     val acceptance: String?,
-    val difficulty: String,
-    val platform: String = Platform.LEETCODE.platform
+    val difficulty: String?,
+    val platform: String? = Platform.LEETCODE.platform
 ) : Persistable<String> {
-    override fun getId(): String = id
+    override fun getId(): String ? = id
 
     override fun isNew(): Boolean {
-        val new = id.isEmpty()
+        val new = id?.isEmpty() ?: true
         id = if (new) UUID.randomUUID().toString() else id
         return new
     }
 
 }
 
-data class Chat(
+class Chat(
     val id: String,
     val messenger: String = Messenger.TELEGRAM.messenger
 )

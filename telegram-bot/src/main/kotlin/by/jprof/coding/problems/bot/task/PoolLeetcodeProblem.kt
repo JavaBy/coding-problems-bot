@@ -29,7 +29,7 @@ class PoolLeetcodeProblem(
     fun runPool() = runBlocking {
         txOperator.executeAndAwait {
             log.info("getting saved leetcode problems")
-            val links = problemRepository.findAllProjectedBy().map { it.getLink() }.toSet()
+            val links = problemRepository.findAllProjectedBy().map { it.link }.toSet()
             log.info("scraping all leetcode the problems")
             val scrapedProblems = leetCodeProblemsScraper.scrapeAllLeetCodeProblems()
             scrapedProblems.forEach {log.info(it.difficulty)}
