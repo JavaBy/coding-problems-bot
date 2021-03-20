@@ -6,7 +6,7 @@
     </appender>
     <logger name="io.github.bonigarcia" level="${SELENIDE_LOGGING:-OFF}" additivity="false"/>
     <logger name="com.codeborne.selenide" level="${SELENIDE_LOGGING:-OFF}" additivity="false"/>
-    <root level="${LOG_LEVEL:-WARN}">
+    <root level="${LOG_LEVEL:-TRACE}">
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>

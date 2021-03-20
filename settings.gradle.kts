@@ -9,4 +9,3 @@
 
 rootProject.name = "coding-problems-bot"
 include("telegram-bot")
-include("app-db")

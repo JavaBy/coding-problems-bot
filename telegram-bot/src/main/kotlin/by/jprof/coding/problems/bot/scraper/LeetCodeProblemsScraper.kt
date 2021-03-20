@@ -1,11 +1,11 @@
 package by.jprof.coding.problems.bot.scraper
 
 import by.jprof.coding.problems.bot.domain.Problem
+import com.codeborne.selenide.Selenide.closeWebDriver
 import com.codeborne.selenide.Selenide.open
 import com.vladsch.flexmark.html2md.converter.FlexmarkHtmlConverter
 import org.openqa.selenium.chrome.ChromeDriverService
 import org.springframework.stereotype.Component
-import java.util.*
 import java.util.logging.Level
 import java.util.logging.Logger
 import kotlin.streams.toList
@@ -20,7 +20,7 @@ class LeetCodeProblemsScraper {
         const val BASE_URL = "https://leetcode.com/problemset/algorithms"
     }
 
-    fun scrapeAllLeetCodeProblems() : List<Problem> {
+    fun scrapeAllLeetCodeProblems() : List<Problem> = try {
         configureBrowser()
 
         open(BASE_URL)
@@ -29,17 +29,19 @@ class LeetCodeProblemsScraper {
 
         val rows = findAll("#question-app table tbody.reactable-data tr")
 
-        return rows.stream().map { row ->
+        rows.stream().map { row ->
             val columns = row.findAll("td")
             val anchorTag = columns[2].find("a")
             Problem(
-                id = UUID.randomUUID().toString(),
+                id = "",
                 title = anchorTag.ownText,
-                link = BASE_URL + anchorTag.attr("href")!!,
-                acceptance = columns[4].ownText.toFloat(),
-                difficulty = columns[5].ownText
+                link = anchorTag.attr("href")!!,
+                acceptance = columns[4].ownText,
+                difficulty = columns[5].find("span").ownText
             )
         }.toList()
+    } finally {
+        closeWebDriver()
     }
 
     private fun configureBrowser() {

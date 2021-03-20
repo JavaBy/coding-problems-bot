@@ -1,6 +1,6 @@
 package by.jprof.coding.problems.bot.service
 
-import by.jprof.coding.problems.bot.config.text
+import by.jprof.coding.problems.bot.ext.text
 import dev.inmo.tgbotapi.bot.TelegramBot
 import dev.inmo.tgbotapi.extensions.api.send.sendMessage
 import dev.inmo.tgbotapi.types.update.MessageUpdate
@@ -12,7 +12,7 @@ class TgUpdateHandlingService(private val telegramBot: TelegramBot) {
     suspend fun handleUpdate(update: Update) {
         if (update is MessageUpdate) {
             update.data.text?.let {
-                telegramBot.sendMessage(update.data.chat.id, it)
+                telegramBot.sendMessage(update.data.chat.id, "echo $it")
             }
         }
     }

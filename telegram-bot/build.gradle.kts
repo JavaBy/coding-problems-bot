@@ -1,7 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.4.20"
     id("org.springframework.boot") version "2.4.0"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
@@ -26,10 +25,8 @@ val flexmarkVersion = "0.62.2"
 val h2r2dbcVersion = "0.8.4.RELEASE"
 
 dependencies {
-    // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 
-    //jackson support
     implementation(platform("com.fasterxml.jackson:jackson-bom:$jacksonVersion"))
     implementation("com.fasterxml.jackson.core:jackson-databind")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -38,37 +35,30 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    // Coroutines support
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$xCoroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$xCoroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
 
-    // Logging framework
     implementation("ch.qos.logback:logback-core:$logbackVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
 
-    // This dependency is used by the application.
     implementation("com.google.guava:guava:29.0-jre")
     implementation("dev.inmo:tgbotapi:$tgbotapiVersion")
     implementation("com.codeborne:selenide:$selenideVersion")
     implementation("com.vladsch.flexmark:flexmark-all:$flexmarkVersion")
-
-    // spring
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
-
-    // database
     implementation("io.r2dbc:r2dbc-h2:$h2r2dbcVersion")
-    // Use JUnit 5 for testing.
+
     testImplementation(platform("org.junit:junit-bom:$junitVersion"))
     testRuntimeOnly(platform("org.junit:junit-bom:$junitVersion"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("org.junit.jupiter:junit-jupiter-params")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-
     testImplementation("io.projectreactor:reactor-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 
 }
 
@@ -83,4 +73,3 @@ tasks {
         useJUnitPlatform()
     }
 }
-
