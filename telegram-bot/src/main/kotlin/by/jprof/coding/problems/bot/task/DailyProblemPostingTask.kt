@@ -16,14 +16,14 @@ import org.springframework.transaction.reactive.TransactionalOperator
 import org.springframework.transaction.reactive.executeAndAwait
 
 @Component
-class DailyTaskPoster(
+class DailyProblemPostingTask(
     private val problemProblemRepository: ProblemRepository,
     private val chatRepository: ChatRepository,
     private val txOperator : TransactionalOperator,
     private val tgBot : TelegramBot
 ) {
     @Scheduled(cron = "0 0 12 * * *")
-    fun postDailyTask() = runBlocking {
+    fun postDailyProblem() = runBlocking {
         txOperator.executeAndAwait {
             val problems = problemProblemRepository.findAll().toList()
             val randomProblem = problems.random()

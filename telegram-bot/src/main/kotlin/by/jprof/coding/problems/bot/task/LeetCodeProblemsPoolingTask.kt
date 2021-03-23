@@ -13,14 +13,14 @@ import org.springframework.transaction.reactive.TransactionalOperator
 import org.springframework.transaction.reactive.executeAndAwait
 
 @Component
-class PoolLeetcodeProblem(
+class LeetCodeProblemsPoolingTask(
     private val leetCodeProblemsScraper: LeetCodeProblemsScraper,
     private val problemProblemRepository: ProblemRepository,
     private val txOperator : TransactionalOperator,
     ) {
 
     companion object {
-        private val log = LoggerFactory.getLogger(PoolLeetcodeProblem::class.java)!!
+        private val log = LoggerFactory.getLogger(LeetCodeProblemsPoolingTask::class.java)!!
     }
 
     @Scheduled(cron = "0 0 0 * * 7")
