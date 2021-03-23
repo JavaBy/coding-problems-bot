@@ -13,19 +13,19 @@ import org.springframework.transaction.reactive.TransactionalOperator
 import org.springframework.transaction.reactive.executeAndAwait
 
 @Component
-class LeetCodeProblemsPoolingTask(
+class LeetCodeProblemsPullingTask(
     private val leetCodeProblemsScraper: LeetCodeProblemsScraper,
     private val problemProblemRepository: ProblemRepository,
     private val txOperator : TransactionalOperator,
     ) {
 
     companion object {
-        private val log = LoggerFactory.getLogger(LeetCodeProblemsPoolingTask::class.java)!!
+        private val log = LoggerFactory.getLogger(LeetCodeProblemsPullingTask::class.java)!!
     }
 
     @Scheduled(cron = "0 0 0 * * 7")
     @Suppress("BlockingMethodInNonBlockingContext") // Scheduled uses separate native thread
-    fun runPool() = runBlocking {
+    fun pull() = runBlocking {
         txOperator.executeAndAwait {
             log.info("getting saved leetcode problems")
             val links = problemProblemRepository.findAllProjectedBy().map { it.link }.toSet()
