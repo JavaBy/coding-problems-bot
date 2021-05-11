@@ -1,0 +1,12 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+    <logger name="io.github.bonigarcia" level="${SELENIDE_LOGGING:-OFF}" additivity="false"/>
+    <logger name="com.codeborne.selenide" level="${SELENIDE_LOGGING:-OFF}" additivity="false"/>
+    <root level="${LOG_LEVEL:-WARN}">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
